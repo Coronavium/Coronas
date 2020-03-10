@@ -436,6 +436,9 @@ public:
   StencilOperator<Element_t, Pattern_t, typename MatrixT::GlobMem_t, StencilSpecT> stencil_operator(
     const StencilSpecT& stencil_spec) {
     for(const auto& stencil : stencil_spec.specs()) {
+#if defined(SPEC)
+      (void)stencil;
+#endif
       DASH_ASSERT_MSG(
         stencil.max()
           <= _halo_spec.extent(RegionSpec<NumDimensions>::index(stencil)),

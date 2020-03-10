@@ -89,7 +89,7 @@ public:
     auto* center = _stencil_op->_local_memory + _stencil_op->get_offset(coords);
 
     *center = op(*center, coefficient_center * value);
-    for(auto i = 0; i < NumStencilPoints; ++i) {
+    for(auto i = 0u; i < NumStencilPoints; ++i) {
       auto& stencil_point_value = center[_stencil_op->_stencil_offsets[i]];
       stencil_point_value =
         op(stencil_point_value,
@@ -116,7 +116,7 @@ public:
     auto* center = _stencil_op->_local_memory + _stencil_op->get_offset(coords);
     ElementT value = *center * coefficient_center;
 
-    for(auto i = 0; i < NumStencilPoints; ++i) {
+    for(auto i = 0u; i < NumStencilPoints; ++i) {
       auto& stencil_point_value = center[_stencil_op->_stencil_offsets[i]];
       value = op(value, _stencil_op->_stencil_spec[i].coefficient()
                           * stencil_point_value);
@@ -330,12 +330,12 @@ public:
     auto* center = _stencil_op->_local_memory + _stencil_op->get_offset(coords);
 
     *center = op(*center, coefficient_center * value);
-    for(auto i = 0; i < NumStencilPoints; ++i) {
+    for(auto i = 0u; i < NumStencilPoints; ++i) {
       bool halo = false;
       for(auto d = 0; d < NumDimensions; ++d) {
         auto coord_value = coords[d] + _stencil_op->_stencil_spec[i][d];
         if(coord_value < 0
-           || coord_value >= _stencil_op->_view_local->extent(d)) {
+           || coord_value >= (long)_stencil_op->_view_local->extent(d)) {
           halo = true;
           break;
         }
@@ -395,14 +395,14 @@ public:
     auto* center = _stencil_op->_local_memory + _stencil_op->get_offset(coords);
     ElementT value        = *center * coefficient_center;
     auto&    stencil_spec = _stencil_op->_stencil_spec;
-    for(auto i = 0; i < NumStencilPoints; ++i) {
+    for(auto i = 0u; i < NumStencilPoints; ++i) {
       bool halo           = false;
       auto coords_stencil = coords;
 
       for(auto d = 0; d < NumDimensions; ++d) {
         coords_stencil[d] += stencil_spec[i][d];
         if(coords_stencil[d] < 0
-           || coords_stencil[d] >= _stencil_op->_view_local->extent(d))
+           || coords_stencil[d] >= (long)_stencil_op->_view_local->extent(d))
           halo = true;
       }
 
