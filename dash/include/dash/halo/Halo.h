@@ -303,7 +303,11 @@ std::ostream& operator<<(
 /**
  * Global boundary Halo properties
  */
-enum class BoundaryProp : uint8_t {
+enum class BoundaryProp
+#if !defined(SPEC)
+: uint8_t
+#endif
+{
   /// No global boundary Halos
   NONE,
   /// Global boundary Halos with values from the opposite boundary
@@ -370,7 +374,11 @@ std::ostream& operator<<(std::ostream&                            os,
 /**
  * Position of a \ref Region in one dimension relating to the center
  */
-enum class RegionPos : bool {
+enum class RegionPos
+#if !defined(SPEC)
+: bool
+#endif
+{
   /// Region before center
   PRE,
   /// Region behind center

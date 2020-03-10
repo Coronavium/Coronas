@@ -14,7 +14,11 @@ namespace halo {
 /**
  * View property of the StencilIterator
  */
-enum class StencilViewScope : std::uint8_t {
+enum class StencilViewScope
+#if !defined(SPEC)
+: std::uint8_t
+#endif
+{
   /// inner elements only
   INNER,
   /// Boundary elements only
